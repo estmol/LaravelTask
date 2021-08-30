@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 
 
-//Route::get('sample', 'SampleController@index')->name('sample');
+///Route::get('sample', 'SampleController@index')->name('sample');
 
 Auth::routes();
 
