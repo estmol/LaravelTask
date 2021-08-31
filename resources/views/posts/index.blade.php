@@ -29,3 +29,7 @@
         @endforeach
     </div>
 @endsection
+
+<a class="btn btn-primary btn-sm" href="{{ route('post.show', ['id' => $post->id]) }}">
+    <i class="far fa-show"></i>詳細
+</a>
