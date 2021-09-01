@@ -52,5 +52,55 @@ class PostController extends Controller
     return view('posts.show', ['post' => $post]);
 
     }
+
+    //編集内容受け取り、ビューにデータ送信？
+    public function edit($id)
+    {
+    // 投稿データのIDでモデルから投稿を1件取得
+    $post = Post::findOrFail($id);
+
+    // 投稿者以外の編集を防ぐ
+    if ($post->user_id !== Auth::id()) {
+        return redirect('/');
+    }
+
+    // edit.blade.phpを表示する(これから作成)
+    return view('posts.edit', ['post' => $post]);
+    }
+    //編集内容の反映？
+    public function update(PostRequest $request, $id)
+    {
+    // 投稿データのIDでモデルから投稿を1件取得
+    $post = Post::findOrFail($id);
+
+    // 投稿者以外の更新を防ぐ
+    if ($post->user_id !== Auth::id()) {
+        return redirect('/');
+    }
+
+    // 編集画面から受け取ったデータをインスタンスに反映
+    $post->title = $request->title;
+    $post->body = $request->body;
+
+    $post->save(); // DBのレコードを更新
+
+    return redirect('/');
+    }
+
+    //削除機能
+    public function delete($id)
+    {
+    // 投稿データのIDでモデルから投稿を1件取得
+    $post = Post::findOrFail($id);
+
+    // 投稿者以外の削除を防ぐ
+    if ($post->user_id !== Auth::id()) {
+        return redirect('/');
+    }
+
+    $post->delete(); // DBのレコードを削除
+
+    return redirect('/');
+    }
 }
 

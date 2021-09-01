@@ -16,11 +16,11 @@
                 </p>
                 <div class="text-right">
                     @if ($post->user_id === Auth::id())
-                    <a class="btn btn-success btn-sm" href="#">
+                    <a class="btn btn-success btn-sm" href="{{ route('post.edit', ['id' => $post->id]) }}">
                         <i class="far fa-edit"></i>編集
                     </a>
-                    <a class="btn btn-danger btn-sm" rel="nofollow" href="#">
-                        <i class="far fa-trash-alt"></i>削除
+                    <a class="btn btn-danger btn-sm" rel="nofollow" href="{{ route('post.delete', ['id' => $post->id]) }}">
+                         <i class="far fa-trash-alt"></i>削除
                     </a>
                     @endif
                 </div>
@@ -29,3 +29,6 @@
     </div>
 </div>
 @endsection
+
+
+
