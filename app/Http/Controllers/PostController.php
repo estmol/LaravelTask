@@ -23,7 +23,8 @@ class PostController extends Controller
     public function create()
     {
         // create.blade.phpを表示する(これから作成)
-        return view('posts.create');
+        //return view('posts.create');
+        dd('投稿画面だよ‼︎');
     }
 
     // 登録（投稿）処理
@@ -65,7 +66,8 @@ class PostController extends Controller
     }
 
     // edit.blade.phpを表示する(これから作成)
-    return view('posts.edit', ['post' => $post]);
+    //return view('posts.edit', ['post' => $post]);
+    dd('編集しようとした投稿データの情報');
     }
     //編集内容の反映？
     public function update(PostRequest $request, $id)

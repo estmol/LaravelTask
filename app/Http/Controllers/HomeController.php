@@ -23,7 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $note = "ノート";
-        dd($note);
+        return view('home');
     }
 }
