@@ -27,7 +27,7 @@ class PostController extends Controller
         dd('投稿画面だよ‼︎');
     }
 
-    // 登録（投稿）処理
+        // 登録（投稿）処理
     public function store(PostRequest $request)
     {
         // Postモデルのインスタンスを生成
@@ -46,63 +46,63 @@ class PostController extends Controller
 
     public function show($id)
     {
-    // 投稿データのIDでモデルから投稿を1件取得
-    $post = Post::findOrFail($id);
+        // 投稿データのIDでモデルから投稿を1件取得
+        $post = Post::findOrFail($id);
 
-    // show.blade.phpを表示する(これから作成)
-    return view('posts.show', ['post' => $post]);
+        // show.blade.phpを表示する(これから作成)
+        return view('posts.show', ['post' => $post]);
 
     }
 
     //編集内容受け取り、ビューにデータ送信？
     public function edit($id)
     {
-    // 投稿データのIDでモデルから投稿を1件取得
-    $post = Post::findOrFail($id);
+        //投稿データのIDでモデルから投稿を1件取得
+        $post = Post::findOrFail($id);
 
     // 投稿者以外の編集を防ぐ
-    if ($post->user_id !== Auth::id()) {
-        return redirect('/');
-    }
+        if ($post->user_id !== Auth::id()) {
+            return redirect('/');
+        }
 
     // edit.blade.phpを表示する(これから作成)
-    //return view('posts.edit', ['post' => $post]);
-    dd('編集しようとした投稿データの情報');
+        //return view('posts.edit', ['post' => $post]);
+        dd($post);
     }
     //編集内容の反映？
     public function update(PostRequest $request, $id)
     {
     // 投稿データのIDでモデルから投稿を1件取得
-    $post = Post::findOrFail($id);
+        $post = Post::findOrFail($id);
 
     // 投稿者以外の更新を防ぐ
-    if ($post->user_id !== Auth::id()) {
+        if ($post->user_id !== Auth::id()) {
+            return redirect('/');
+        }
+
+    //編集画面から受け取ったデータをインスタンスに反映
+        $post->title = $request->title;
+        $post->body = $request->body;
+
+        $post->save(); // DBのレコードを更新
+
         return redirect('/');
-    }
-
-    // 編集画面から受け取ったデータをインスタンスに反映
-    $post->title = $request->title;
-    $post->body = $request->body;
-
-    $post->save(); // DBのレコードを更新
-
-    return redirect('/');
     }
 
     //削除機能
     public function delete($id)
     {
-    // 投稿データのIDでモデルから投稿を1件取得
-    $post = Post::findOrFail($id);
+        // 投稿データのIDでモデルから投稿を1件取得
+        $post = Post::findOrFail($id);
 
-    // 投稿者以外の削除を防ぐ
-    if ($post->user_id !== Auth::id()) {
+        // 投稿者以外の削除を防ぐ
+        if ($post->user_id !== Auth::id()) {
+            return redirect('/');
+        }
+
+        $post->delete(); // DBのレコードを削除
+
         return redirect('/');
-    }
-
-    $post->delete(); // DBのレコードを削除
-
-    return redirect('/');
     }
 }
 
